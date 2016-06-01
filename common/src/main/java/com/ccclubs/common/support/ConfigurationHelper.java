@@ -1,0 +1,87 @@
+package com.ccclubs.common.support;
+
+import android.support.annotation.ColorRes;
+
+/**
+ * 项目配置
+ */
+public class ConfigurationHelper {
+  /**
+   * 是否竖屏显示
+   */
+  private static boolean isScreenPortrait = false;
+  /**
+   * 是否打印网络参数
+   */
+  private static boolean isShowNetworkParams = false;
+
+  /**
+   * 是否打印网络参数
+   */
+  private static int modalLoadingColor = -1;
+
+  private static String modalLoadingText = "数据加载中...";
+
+  /**
+   * 开启竖屏显示
+   */
+  public static void enableScreenPortrait() {
+    isScreenPortrait = true;
+  }
+
+  /**
+   * 获取横屏显示
+   */
+  public static boolean getScreenPortrait() {
+    return isScreenPortrait;
+  }
+
+  /**
+   * 获取模态dialog颜色值
+   */
+  public static int getModalLoadingColor() {
+    return modalLoadingColor;
+  }
+
+  /**
+   * 设置模态dialog颜色值
+   */
+  public static void setModalLoadingColor(@ColorRes int modalLoadingColor) {
+    ConfigurationHelper.modalLoadingColor = modalLoadingColor;
+  }
+
+  /**
+   * 获取模态dialog显示字符串
+   */
+  public static String getModalLoadingText() {
+    return modalLoadingText;
+  }
+
+  /**
+   * 设置模态dialog显示字符串
+   */
+  public static void setModalLoadingText(String modalLoadingText) {
+    ConfigurationHelper.modalLoadingText = modalLoadingText;
+  }
+
+  /**
+   * 开启打印网络请求参数
+   */
+  public static void enableLoggingNetworkParams() {
+    isShowNetworkParams = true;
+  }
+
+  /**
+   * 关闭打印网络请求参数
+   */
+  public static void disableLoggingNetworkParams() {
+    isShowNetworkParams = false;
+  }
+
+  /**
+   * 是否打印网络请求参数
+   */
+  public static boolean isShowNetworkParams() {
+    return isShowNetworkParams;
+  }
+}

@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">commonLibs</string>
+  <string name="common_exit">再按一次退出程序！</string>
+</resources>
