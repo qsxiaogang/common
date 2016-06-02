@@ -12,7 +12,7 @@ buildscript {
 }
 
 ext {
-  configuration = [//            package          : "com.ccclubs.dk",
+  configuration = [
                    compileSdkVersion: 23,
                    buildToolsVersion: "23.0.2",
                    minSdk           : 9,
