@@ -8,6 +8,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 
 /**
  * 用于显示 loading - content - error 模式的动画效果
@@ -40,12 +41,9 @@ public class LceAnimatorHelper {
 
     final Resources resources = loadingView.getResources();
     // Not visible yet, so animate the view in
-
     AnimatorSet set = new AnimatorSet();
-    //ObjectAnimator in = ObjectAnimator.ofFloat(errorView, View.ALPHA, 1f);
     ObjectAnimator in = ObjectAnimator.ofFloat(errorView, "alpha", 1f);
-    //ObjectAnimator loadingOut = ObjectAnimator.ofFloat(loadingView, View.ALPHA, 0f);
-    final ObjectAnimator loadingOut = ObjectAnimator.ofFloat(loadingView, "alpha", 0f);
+    ObjectAnimator loadingOut = ObjectAnimator.ofFloat(loadingView, "alpha", 0f);
 
     set.playTogether(in, loadingOut);
     set.setDuration(resources.getInteger(R.integer.lce_error_view_show_animation_time));
@@ -60,7 +58,7 @@ public class LceAnimatorHelper {
       @Override public void onAnimationEnd(Animator animation) {
         super.onAnimationEnd(animation);
         loadingView.setVisibility(View.GONE);
-        //loadingView.setAlpha(1f); // For future showLoading calls
+        ViewHelper.setAlpha(loadingView, 1f); // For future showLoading calls
       }
     });
 
@@ -86,19 +84,13 @@ public class LceAnimatorHelper {
           resources.getDimensionPixelSize(R.dimen.lce_content_view_animation_translate_y);
       // Not visible yet, so animate the view in
       AnimatorSet set = new AnimatorSet();
-      //ObjectAnimator contentFadeIn = ObjectAnimator.ofFloat(contentView, View.ALPHA, 0f, 1f);
       ObjectAnimator contentFadeIn = ObjectAnimator.ofFloat(contentView, "alpha", 0f, 1f);
-      //ObjectAnimator contentTranslateIn =
-      //    ObjectAnimator.ofFloat(contentView, View.TRANSLATION_Y, translateInPixels, 0);
       ObjectAnimator contentTranslateIn =
-          ObjectAnimator.ofFloat(contentView, "y", translateInPixels, 0);
+          ObjectAnimator.ofFloat(contentView, "translationY", translateInPixels, 0);
 
-      //ObjectAnimator loadingFadeOut = ObjectAnimator.ofFloat(loadingView, View.ALPHA, 1f, 0f);
       ObjectAnimator loadingFadeOut = ObjectAnimator.ofFloat(loadingView, "alpha", 1f, 0f);
-      //ObjectAnimator loadingTranslateOut =
-      //    ObjectAnimator.ofFloat(loadingView, View.TRANSLATION_Y, 0, -translateInPixels);
       ObjectAnimator loadingTranslateOut =
-          ObjectAnimator.ofFloat(loadingView, "y", 0, -translateInPixels);
+          ObjectAnimator.ofFloat(loadingView, "translationY", 0, -translateInPixels);
 
       set.playTogether(contentFadeIn, contentTranslateIn, loadingFadeOut, loadingTranslateOut);
       set.setDuration(resources.getInteger(R.integer.lce_content_view_show_animation_time));
@@ -106,16 +98,16 @@ public class LceAnimatorHelper {
       set.addListener(new AnimatorListenerAdapter() {
 
         @Override public void onAnimationStart(Animator animation) {
-          //contentView.setTranslationY(0);
-          //loadingView.setTranslationY(0);
+          ViewHelper.setTranslationY(contentView, 0);
+          ViewHelper.setTranslationY(loadingView, 0);
           contentView.setVisibility(View.VISIBLE);
         }
 
         @Override public void onAnimationEnd(Animator animation) {
           loadingView.setVisibility(View.GONE);
-          //loadingView.setAlpha(1f); // For future showLoading calls
-          //contentView.setTranslationY(0);
-          //loadingView.setTranslationY(0);
+          ViewHelper.setAlpha(loadingView, 1f); // For future showLoading calls
+          ViewHelper.setTranslationY(contentView, 0);
+          ViewHelper.setTranslationY(loadingView, 0);
         }
       });
 
