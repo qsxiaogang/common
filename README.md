@@ -1,5 +1,5 @@
 # common 一个简易的MVP框架。
-
+该框架目前集成了`support`，`design`，`retrofit`，`rxjava`，`rxandroid`，`butterknife`，`eventbus`，`nineoldandroids`，`sweetalert`等第三方库。
 
 //TODO
 
