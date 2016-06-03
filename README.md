@@ -73,6 +73,6 @@
 ```
 
 # 感谢以下开源项目
-> -https://github.com/sockeqwe/mosby
-> -https://github.com/ray0807/ShareFramework
-> -https://github.com/Aspsine/IRecyclerView
+- https://github.com/sockeqwe/mosby
+- https://github.com/ray0807/ShareFramework
+- https://github.com/Aspsine/IRecyclerView
