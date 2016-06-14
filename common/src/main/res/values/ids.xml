@@ -8,4 +8,6 @@
   <item name="empty_img" type="id"/>
   <item name="empty_text" type="id"/>
 
+  <item name="toolbar" type="id"/>
+
 </resources>

@@ -37,10 +37,10 @@ public abstract class RxLceeActivity<CV extends View, M, V extends RxLceeView<M>
 
   @CallSuper @Override protected void init(Bundle savedInstanceState) {
     super.init(savedInstanceState);
-    loadingView = findViewById(R.id.loadingView);
-    contentView = (CV) findViewById(R.id.contentView);
-    errorView = (TextView) findViewById(R.id.errorView);
-    emptyView = findViewById(R.id.emptyView);
+    loadingView = $(R.id.loadingView);
+    contentView = $(R.id.contentView);
+    errorView = $(R.id.errorView);
+    emptyView = $(R.id.emptyView);
 
     if (loadingView == null) {
       throw new NullPointerException(

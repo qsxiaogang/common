@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -98,6 +100,25 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
     }
 
     init(savedInstanceState);
+  }
+
+  public <T extends View> T $(int id) {
+    return (T) super.findViewById(id);
+  }
+
+  public Toolbar initToolbar(int title) {
+    return initToolbar(getString(title));
+  }
+
+  public Toolbar initToolbar(CharSequence title) {
+    Toolbar toolbar = $(R.id.toolbar);
+    if (null != toolbar) {
+      setTitle(title);
+      setSupportActionBar(toolbar);
+      getSupportActionBar().setHomeButtonEnabled(true);
+      getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    return toolbar;
   }
 
   /**

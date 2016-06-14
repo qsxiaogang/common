@@ -33,7 +33,7 @@ public abstract class RxBaseActivity<V extends RxBaseView, P extends RxBasePrese
       mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
       mLoadingDialog.getProgressHelper()
           .setBarColor(getResources().getColor(ConfigurationHelper.getModalLoadingColor()));
-      mLoadingDialog.setCancelable(false);
+      mLoadingDialog.setCancelable(true);
       mLoadingDialog.setTitleText(ConfigurationHelper.getModalLoadingText());
     }
     mLoadingDialog.show();
