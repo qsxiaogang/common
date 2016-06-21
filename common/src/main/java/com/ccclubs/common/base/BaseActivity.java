@@ -216,7 +216,7 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
    * 网络连接 ，未连接
    */
   public void onNetworkDisConnected() {
-    toastS(R.string.network_error);
+    //toastS(R.string.network_error);
   }
 
   @Override public boolean isNetworkAvailable() {
