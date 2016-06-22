@@ -1,6 +1,9 @@
 package com.ccclubs.common.support;
 
 import android.support.annotation.ColorRes;
+import android.support.annotation.NonNull;
+import com.ccclubs.common.api.RetrofitFactory;
+import okhttp3.OkHttpClient;
 
 /**
  * 项目配置
@@ -83,5 +86,19 @@ public class ConfigurationHelper {
    */
   public static boolean isShowNetworkParams() {
     return isShowNetworkParams;
+  }
+
+  /**
+   * 设置baseUrl
+   */
+  public static void setBaseUrl(@NonNull String baseUrl) {
+    RetrofitFactory.setBaseUrl(baseUrl);
+  }
+
+  /**
+   * 设置OkHttpClient
+   */
+  public static void setOkhttpClient(@NonNull OkHttpClient client) {
+    RetrofitFactory.setOkhttpClient(client);
   }
 }
