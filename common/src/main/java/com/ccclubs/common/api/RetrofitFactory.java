@@ -42,7 +42,7 @@ public class RetrofitFactory {
           .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
           .addConverterFactory(GsonConverterFactory.create());
 
-      if (mRetrofit != null) builder.client(mClient);
+      if (mClient != null) builder.client(mClient);
 
       mRetrofit = builder.build();
     }
@@ -63,7 +63,7 @@ public class RetrofitFactory {
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .addConverterFactory(factory);
 
-    if (mRetrofit != null) builder.client(mClient);
+    if (mClient != null) builder.client(mClient);
 
     return builder.build();
   }
