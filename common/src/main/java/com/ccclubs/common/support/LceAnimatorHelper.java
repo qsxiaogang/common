@@ -23,10 +23,11 @@ public class LceAnimatorHelper {
    * Show the loading view. No animations, because sometimes loading things is pretty fast (i.e.
    * retrieve data from memory com.ccclubs.common.cache).
    */
-  public static void showLoading(@NonNull View loadingView, @NonNull View contentView,
-      @NonNull View errorView) {
+  public static void showLoading(@NonNull final View loadingView, @NonNull final View contentView,
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     contentView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
     errorView.setVisibility(View.GONE);
     loadingView.setVisibility(View.VISIBLE);
   }
@@ -35,9 +36,10 @@ public class LceAnimatorHelper {
    * Shows the error view instead of the loading view
    */
   public static void showErrorView(@NonNull final View loadingView, @NonNull final View contentView,
-      final View errorView) {
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     contentView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
 
     final Resources resources = loadingView.getResources();
     // Not visible yet, so animate the view in
@@ -69,15 +71,16 @@ public class LceAnimatorHelper {
    * Display the content instead of the loadingView
    */
   public static void showContent(@NonNull final View loadingView, @NonNull final View contentView,
-      @NonNull final View errorView) {
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     if (contentView.getVisibility() == View.VISIBLE) {
       // No Changing needed, because contentView is already visible
+      emptyView.setVisibility(View.GONE);
       errorView.setVisibility(View.GONE);
       loadingView.setVisibility(View.GONE);
     } else {
-
       errorView.setVisibility(View.GONE);
+      emptyView.setVisibility(View.GONE);
 
       final Resources resources = loadingView.getResources();
       final int translateInPixels =
