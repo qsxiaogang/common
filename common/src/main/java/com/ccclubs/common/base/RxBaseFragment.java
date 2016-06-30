@@ -21,8 +21,6 @@ import android.view.View;
 public abstract class RxBaseFragment<V extends RxBaseView, P extends RxBasePresenter<V>>
     extends BaseFragment<V, P> implements RxBaseView {
 
-  protected View modalLoadingView;
-
   @CallSuper @Override protected void init() {
     // 绑定到生命周期
     if (getPresenter() != null) getPresenter().registerLifeCycle();

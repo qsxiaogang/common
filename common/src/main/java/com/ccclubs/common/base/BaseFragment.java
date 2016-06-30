@@ -2,6 +2,7 @@ package com.ccclubs.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -162,7 +163,7 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
    *
    * @return 需加载的布局ID
    */
-  protected abstract int getLayoutId();
+  protected abstract @LayoutRes int getLayoutId();
 
   protected abstract boolean isBindEventBusHere();
 

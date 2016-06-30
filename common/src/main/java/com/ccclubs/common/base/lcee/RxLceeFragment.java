@@ -1,6 +1,5 @@
 package com.ccclubs.common.base.lcee;
 
-import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.view.View;
 import android.widget.TextView;
@@ -61,6 +60,12 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
       throw new NullPointerException(
           "Error view is null! Have you specified a content view in your layout xml file?"
               + " You have to give your error View the id R.id.contentView");
+    }
+
+    if (emptyView == null) {
+      throw new NullPointerException(
+          "Empty view is null! Have you specified a content view in your layout xml file?"
+              + " You have to give your empty View the id R.id.emptyView");
     }
 
     errorView.setOnClickListener(new View.OnClickListener() {

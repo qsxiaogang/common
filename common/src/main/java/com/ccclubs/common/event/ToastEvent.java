@@ -4,19 +4,19 @@ package com.ccclubs.common.event;
  * 用于Toast的EventBus事件
  */
 public class ToastEvent {
-  int duration;
+  private boolean lengthShort = true;
   private String msg;
 
-  public ToastEvent(String msg, int duration) {
+  public ToastEvent(String msg, boolean lengthShort) {
     this.msg = msg;
-    this.duration = duration;
+    this.lengthShort = lengthShort;
   }
 
   public String getMsg() {
     return msg;
   }
 
-  public int getDuration() {
-    return duration;
+  public boolean isLengthShort() {
+    return lengthShort;
   }
 }

@@ -5,15 +5,19 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.CallSuper;
+import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.ccclubs.common.R;
+import com.ccclubs.common.event.NoEvent;
 import com.ccclubs.common.event.ToastEvent;
 import com.ccclubs.common.netstate.NetChangeObserver;
 import com.ccclubs.common.netstate.NetStateReceiver;
@@ -21,7 +25,6 @@ import com.ccclubs.common.support.ActivityManagerHelper;
 import com.ccclubs.common.support.ConfigurationHelper;
 import com.ccclubs.common.support.EventBusHelper;
 import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Activity基类, 继承自此类的Activity需要实现{@link #getLayoutId},{@link #init}
@@ -102,15 +105,15 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
     init(savedInstanceState);
   }
 
-  public <T extends View> T $(int id) {
+  public <T extends View> T $(@IdRes int id) {
     return (T) super.findViewById(id);
   }
 
-  public Toolbar initToolbar(int title) {
+  public Toolbar initToolbar(@StringRes int title) {
     return initToolbar(getString(title));
   }
 
-  public Toolbar initToolbar(CharSequence title) {
+  public Toolbar initToolbar(@NonNull CharSequence title) {
     Toolbar toolbar = $(R.id.toolbar);
     if (null != toolbar) {
       setTitle(title);
@@ -127,7 +130,7 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
    *
    * @return 需加载的布局ID
    */
-  protected abstract int getLayoutId();
+  protected abstract @LayoutRes int getLayoutId();
 
   /**
    * 初始化方法, 类似OnCreate, 仅在此方法中做初始化操作, findView与事件绑定请使用ButterKnife
@@ -262,37 +265,23 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
     return this;
   }
 
-  /*
-      *********************************************** Toast ************************************************
-      */
-  @Override public void toastL(int resId) {
-    //Toast.makeText(this, getString(resId), Toast.LENGTH_LONG).show();
-    EventBusHelper.post(new ToastEvent(getString(resId), Toast.LENGTH_LONG));
+  /************************************************ Toast *************************************************/
+  @Override public void toastL(@StringRes int resId) {
+    EventBusHelper.post(new ToastEvent(getString(resId), false));
   }
 
-  @Override public void toastS(int resId) {
-    EventBusHelper.post(new ToastEvent(getString(resId), Toast.LENGTH_SHORT));
+  @Override public void toastS(@StringRes int resId) {
+    EventBusHelper.post(new ToastEvent(getString(resId), true));
   }
 
-  @Override public void toastL(String content) {
-    EventBusHelper.post(new ToastEvent(content, Toast.LENGTH_LONG));
+  @Override public void toastL(@NonNull String content) {
+    EventBusHelper.post(new ToastEvent(content, false));
   }
 
-  @Override public void toastS(String content) {
-    EventBusHelper.post(new ToastEvent(content, Toast.LENGTH_SHORT));
+  @Override public void toastS(@NonNull String content) {
+    EventBusHelper.post(new ToastEvent(content, true));
   }
 
-  /**
-   * 处理Toast事件
-   */
-  @Subscribe(threadMode = ThreadMode.MAIN) public void onToastEvent(ToastEvent event) {
-    switch (event.getDuration()) {
-      case Toast.LENGTH_SHORT:
-        Toast.makeText(this, event.getMsg(), Toast.LENGTH_SHORT).show();
-        break;
-      case Toast.LENGTH_LONG:
-        Toast.makeText(this, event.getMsg(), Toast.LENGTH_LONG).show();
-        break;
-    }
+  @Subscribe public void onEventMainThread(NoEvent msg) {
   }
 }
