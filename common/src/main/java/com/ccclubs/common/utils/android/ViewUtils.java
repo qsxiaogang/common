@@ -1,6 +1,7 @@
 package com.ccclubs.common.utils.android;
 
 import android.support.v4.view.ViewCompat;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
@@ -32,8 +33,10 @@ public class ViewUtils {
    * @param emptyText empty_text
    */
   public static void setEmptyMessage(View view, int imgRes, String emptyText) {
-    ((ImageView) view.findViewById(R.id.empty_img)).setImageResource(imgRes);
-    ((TextView) view.findViewById(R.id.empty_text)).setText(emptyText);
+    if (imgRes != -1) ((ImageView) view.findViewById(R.id.empty_img)).setImageResource(imgRes);
+    if (!TextUtils.isEmpty(emptyText)) {
+      ((TextView) view.findViewById(R.id.empty_text)).setText(emptyText);
+    }
   }
 
   //public static boolean canChildScrollUp(View view) {
@@ -56,9 +59,8 @@ public class ViewUtils {
     if (android.os.Build.VERSION.SDK_INT < 14) {
       if (view instanceof AbsListView) {
         final AbsListView absListView = (AbsListView) view;
-        return absListView.getChildCount() > 0
-            && (absListView.getFirstVisiblePosition() > 0 || absListView.getChildAt(0)
-            .getTop() < absListView.getPaddingTop());
+        return absListView.getChildCount() > 0 && (absListView.getFirstVisiblePosition() > 0
+            || absListView.getChildAt(0).getTop() < absListView.getPaddingTop());
       } else {
         return ViewCompat.canScrollVertically(view, -1) || view.getScrollY() > 0;
       }
@@ -66,5 +68,4 @@ public class ViewUtils {
       return ViewCompat.canScrollVertically(view, -1);
     }
   }
-
 }
