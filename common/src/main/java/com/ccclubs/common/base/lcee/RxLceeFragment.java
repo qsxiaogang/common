@@ -107,7 +107,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Override this method if you want to provide your own animation for showing the loading view
    */
   protected void animateLoadingViewIn() {
-    LceAnimatorHelper.showLoading(loadingView, contentView, errorView);
+    LceAnimatorHelper.showLoading(loadingView, contentView, errorView, emptyView);
   }
 
   @Override public void showContent() {
@@ -118,7 +118,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Called to animate from loading view to content view
    */
   protected void animateContentViewIn() {
-    LceAnimatorHelper.showContent(loadingView, contentView, errorView);
+    LceAnimatorHelper.showContent(loadingView, contentView, errorView, emptyView);
   }
 
   @Override public void showError(Throwable e, boolean pullToRefresh) {
@@ -131,7 +131,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Animates the error view in (instead of displaying content view / loading view)
    */
   protected void animateErrorViewIn() {
-    LceAnimatorHelper.showErrorView(loadingView, contentView, errorView);
+    LceAnimatorHelper.showErrorView(loadingView, contentView, errorView, emptyView);
   }
 
   public RxBaseActivity getRxContext() {
