@@ -18,12 +18,12 @@ import android.view.WindowManager;
 import butterknife.ButterKnife;
 import com.ccclubs.common.R;
 import com.ccclubs.common.event.NoEvent;
-import com.ccclubs.common.event.ToastEvent;
 import com.ccclubs.common.netstate.NetChangeObserver;
 import com.ccclubs.common.netstate.NetStateReceiver;
 import com.ccclubs.common.support.ActivityManagerHelper;
 import com.ccclubs.common.support.ConfigurationHelper;
 import com.ccclubs.common.support.EventBusHelper;
+import com.ccclubs.common.utils.android.ToastUtils;
 import org.greenrobot.eventbus.Subscribe;
 
 /**
@@ -267,19 +267,19 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
 
   /************************************************ Toast *************************************************/
   @Override public void toastL(@StringRes int resId) {
-    EventBusHelper.post(new ToastEvent(getString(resId), false));
+    ToastUtils.showToastL(this, resId);
   }
 
   @Override public void toastS(@StringRes int resId) {
-    EventBusHelper.post(new ToastEvent(getString(resId), true));
+    ToastUtils.showToastS(this, resId);
   }
 
   @Override public void toastL(@NonNull String content) {
-    EventBusHelper.post(new ToastEvent(content, false));
+    ToastUtils.showToastL(this, content);
   }
 
   @Override public void toastS(@NonNull String content) {
-    EventBusHelper.post(new ToastEvent(content, true));
+    ToastUtils.showToastS(this, content);
   }
 
   @Subscribe public void onEventMainThread(NoEvent msg) {
