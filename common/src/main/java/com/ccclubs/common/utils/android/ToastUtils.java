@@ -27,11 +27,11 @@ public class ToastUtils {
     mHandler.removeCallbacks(runnable);
     if (mToast == null) {
       mToast = Toast.makeText(context, text, duration);
-      mToast.show();
     } else {
       mToast.setText(text);
     }
     mHandler.postDelayed(runnable, 1000);
+    mToast.show();
   }
 
   public static void showToastL(Context context, @NonNull String text) {
