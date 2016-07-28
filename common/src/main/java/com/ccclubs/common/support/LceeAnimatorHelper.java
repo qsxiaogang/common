@@ -14,9 +14,9 @@ import com.nineoldandroids.view.ViewHelper;
  * 用于显示 loading - content - error 模式的动画效果
  * Little helper class for animating content, error and loading view
  */
-public class LceAnimatorHelper {
+public class LceeAnimatorHelper {
 
-  private LceAnimatorHelper() {
+  private LceeAnimatorHelper() {
   }
 
   /**
@@ -24,9 +24,10 @@ public class LceAnimatorHelper {
    * retrieve data from memory com.ccclubs.common.cache).
    */
   public static void showLoading(@NonNull final View loadingView, @NonNull final View contentView,
-      @NonNull final View errorView) {
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     contentView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
     errorView.setVisibility(View.GONE);
     loadingView.setVisibility(View.VISIBLE);
   }
@@ -35,9 +36,10 @@ public class LceAnimatorHelper {
    * Shows the error view instead of the loading view
    */
   public static void showErrorView(@NonNull final View loadingView, @NonNull final View contentView,
-      @NonNull final View errorView) {
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     contentView.setVisibility(View.GONE);
+    emptyView.setVisibility(View.GONE);
 
     final Resources resources = loadingView.getResources();
     // Not visible yet, so animate the view in
@@ -69,14 +71,16 @@ public class LceAnimatorHelper {
    * Display the content instead of the loadingView
    */
   public static void showContent(@NonNull final View loadingView, @NonNull final View contentView,
-      @NonNull final View errorView) {
+      @NonNull final View errorView, @NonNull final View emptyView) {
 
     if (contentView.getVisibility() == View.VISIBLE) {
       // No Changing needed, because contentView is already visible
+      emptyView.setVisibility(View.GONE);
       errorView.setVisibility(View.GONE);
       loadingView.setVisibility(View.GONE);
     } else {
       errorView.setVisibility(View.GONE);
+      emptyView.setVisibility(View.GONE);
 
       final Resources resources = loadingView.getResources();
       final int translateInPixels =

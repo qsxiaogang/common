@@ -1,4 +1,4 @@
-package com.ccclubs.common.base.lcee;
+package com.ccclubs.common.base.lce;
 
 import android.support.annotation.CallSuper;
 import android.view.View;
@@ -7,8 +7,8 @@ import com.ccclubs.common.R;
 import com.ccclubs.common.base.RxBaseActivity;
 import com.ccclubs.common.base.RxBaseFragment;
 import com.ccclubs.common.base.RxBasePresenter;
-import com.ccclubs.common.support.LceeAnimatorHelper;
-import com.ccclubs.common.utils.android.ViewUtils;
+import com.ccclubs.common.base.lcee.RxLceeView;
+import com.ccclubs.common.support.LceAnimatorHelper;
 
 /**
  * Fragment基类, 继承自此类的Fragment需要实现{@link #getLayoutId}, {@link #init}
@@ -28,13 +28,12 @@ import com.ccclubs.common.utils.android.ViewUtils;
  * Presenter的生命周期已交由此类管理, 子类无需管理. 如果子类要使用多个Presenter, 则需要自行管理生命周期.
  * 此类已经实现了BaseView中的抽象方法, 子类无需再实现, 如需自定可覆写对应的方法.
  */
-public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>, P extends RxBasePresenter<V>>
-    extends RxBaseFragment<V, P> implements RxLceeView<M> {
+public abstract class RxLceFragment<CV extends View, M, V extends RxLceView<M>, P extends RxBasePresenter<V>>
+    extends RxBaseFragment<V, P> implements RxLceView<M> {
 
   protected View loadingView;
   protected CV contentView;
   protected TextView errorView;
-  protected View emptyView;
 
   @CallSuper @Override protected void init() {
     super.init();
@@ -42,7 +41,6 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
     loadingView = getParentView().findViewById(R.id.loadingView);
     contentView = (CV) getParentView().findViewById(R.id.contentView);
     errorView = (TextView) getParentView().findViewById(R.id.errorView);
-    emptyView = getParentView().findViewById(R.id.emptyView);
 
     if (loadingView == null) {
       throw new NullPointerException(
@@ -62,23 +60,9 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
               + " You have to give your error View the id R.id.contentView");
     }
 
-    if (emptyView == null) {
-      throw new NullPointerException(
-          "Empty view is null! Have you specified a content view in your layout xml file?"
-              + " You have to give your empty View the id R.id.emptyView");
-    }
-
     errorView.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View v) {
         onErrorViewClicked();
-      }
-    });
-
-    ViewUtils.setEmptyMessage(emptyView, getEmptyImage(), getEmptyMessage());
-
-    emptyView.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View v) {
-        onEmptyViewClicked();
       }
     });
   }
@@ -95,8 +79,6 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    */
   protected abstract void onErrorViewClicked();
 
-  public abstract void onEmptyViewClicked();
-
   @Override public void showLoading(boolean pullToRefresh) {
     if (!pullToRefresh) {
       animateLoadingViewIn();
@@ -107,7 +89,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Override this method if you want to provide your own animation for showing the loading view
    */
   protected void animateLoadingViewIn() {
-    LceeAnimatorHelper.showLoading(loadingView, contentView, errorView, emptyView);
+    LceAnimatorHelper.showLoading(loadingView, contentView, errorView);
   }
 
   @Override public void showContent() {
@@ -118,7 +100,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Called to animate from loading view to content view
    */
   protected void animateContentViewIn() {
-    LceeAnimatorHelper.showContent(loadingView, contentView, errorView, emptyView);
+    LceAnimatorHelper.showContent(loadingView, contentView, errorView);
   }
 
   @Override public void showError(Throwable e, boolean pullToRefresh) {
@@ -131,7 +113,7 @@ public abstract class RxLceeFragment<CV extends View, M, V extends RxLceeView<M>
    * Animates the error view in (instead of displaying content view / loading view)
    */
   protected void animateErrorViewIn() {
-    LceeAnimatorHelper.showErrorView(loadingView, contentView, errorView, emptyView);
+    LceAnimatorHelper.showErrorView(loadingView, contentView, errorView);
   }
 
   public RxBaseActivity getRxContext() {

@@ -8,7 +8,7 @@ import com.ccclubs.common.R;
 import com.ccclubs.common.base.RxBaseActivity;
 import com.ccclubs.common.base.RxBasePresenter;
 import com.ccclubs.common.base.RxBaseView;
-import com.ccclubs.common.support.LceAnimatorHelper;
+import com.ccclubs.common.support.LceeAnimatorHelper;
 import com.ccclubs.common.utils.android.ViewUtils;
 
 /**
@@ -100,7 +100,7 @@ public abstract class RxLceeActivity<CV extends View, M, V extends RxLceeView<M>
    * Override this method if you want to provide your own animation for showing the loading view
    */
   protected void animateLoadingViewIn() {
-    LceAnimatorHelper.showLoading(loadingView, contentView, errorView,emptyView);
+    LceeAnimatorHelper.showLoading(loadingView, contentView, errorView,emptyView);
   }
 
   @Override public void showContent() {
@@ -111,7 +111,7 @@ public abstract class RxLceeActivity<CV extends View, M, V extends RxLceeView<M>
    * Called to animate from loading view to content view
    */
   protected void animateContentViewIn() {
-    LceAnimatorHelper.showContent(loadingView, contentView, errorView,emptyView);
+    LceeAnimatorHelper.showContent(loadingView, contentView, errorView,emptyView);
   }
 
   @Override public void showError(Throwable e, boolean pullToRefresh) {
@@ -124,6 +124,6 @@ public abstract class RxLceeActivity<CV extends View, M, V extends RxLceeView<M>
    * Animates the error view in (instead of displaying content view / loading view)
    */
   protected void animateErrorViewIn() {
-    LceAnimatorHelper.showErrorView(loadingView, contentView, errorView,emptyView);
+    LceeAnimatorHelper.showErrorView(loadingView, contentView, errorView,emptyView);
   }
 }
