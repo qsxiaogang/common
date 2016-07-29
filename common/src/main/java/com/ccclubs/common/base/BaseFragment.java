@@ -64,9 +64,11 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
   @CallSuper @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     parentView = getLayoutInflater(savedInstanceState).inflate(getLayoutId(), null, false);
+    dynamicAddView();
+    ButterKnife.bind(this, parentView);
+
     presenter = createPresenter();
     if (presenter != null) presenter.attachView((V) this);
-    ButterKnife.bind(this, parentView);
 
     TAG_LOG = this.getClass().getSimpleName();
 
@@ -85,6 +87,12 @@ public abstract class BaseFragment<V extends BaseView, T extends BasePresenter<V
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     return parentView;
+  }
+
+  /**
+   * 动态添加视图
+   */
+  public void dynamicAddView() {
   }
 
   /**

@@ -71,14 +71,15 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
     }
 
     setContentView(getLayoutId());
+    dynamicAddView();
+    ButterKnife.bind(this);
+
     presenter = createPresenter();
     if (presenter != null) presenter.attachView((V) this);
-    ButterKnife.bind(this);
 
     TAG_LOG = this.getClass().getSimpleName();
     DisplayMetrics displayMetrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-
     mScreenDensity = displayMetrics.density;
     mScreenHeight = displayMetrics.heightPixels;
     mScreenWidth = displayMetrics.widthPixels;
@@ -94,15 +95,24 @@ public abstract class BaseActivity<V extends BaseView, T extends BasePresenter<V
         onNetworkDisConnected();
       }
     };
+
     NetStateReceiver.registerObserver(mNetChangeObserver);
     NetStateReceiver.registerNetworkStateReceiver(this);
+
     EventBusHelper.register(this);
+
     // 是否开启竖屏显示
     if (ConfigurationHelper.getScreenPortrait()) {
       setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     init(savedInstanceState);
+  }
+
+  /**
+   * 动态添加视图
+   */
+  public void dynamicAddView() {
   }
 
   public <T extends View> T $(@IdRes int id) {
