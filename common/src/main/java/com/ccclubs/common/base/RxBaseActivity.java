@@ -2,8 +2,7 @@ package com.ccclubs.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
-import cn.pedant.SweetAlert.SweetAlertDialog;
-import com.ccclubs.common.support.ConfigurationHelper;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 /**
  * Activity基类, 继承自此类的Activity需要实现{@link #getLayoutId},{@link #init}
@@ -20,23 +19,21 @@ import com.ccclubs.common.support.ConfigurationHelper;
 public abstract class RxBaseActivity<V extends RxBaseView, P extends RxBasePresenter<V>>
     extends BaseActivity<V, P> implements RxBaseView {
 
-  private SweetAlertDialog mLoadingDialog;
+  private MaterialDialog mLoadingDialog;
 
   @CallSuper @Override protected void init(Bundle savedInstanceState) {
     // 绑定到生命周期
-    if (getPresenter() != null)
-    getPresenter().registerLifeCycle();
+    if (getPresenter() != null) getPresenter().registerLifeCycle();
   }
 
   @Override public void showModalLoading() {
     if (mLoadingDialog == null) {
-      mLoadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-      mLoadingDialog.getProgressHelper()
-          .setBarColor(getResources().getColor(ConfigurationHelper.getModalLoadingColor()));
-      mLoadingDialog.setCancelable(true);
-      mLoadingDialog.setTitleText(ConfigurationHelper.getModalLoadingText());
+      mLoadingDialog = new MaterialDialog.Builder(this).content("正在加载...")
+          .progress(true, 0)
+          .progressIndeterminateStyle(false)
+          .show();
     }
-    mLoadingDialog.show();
+    if (!mLoadingDialog.isShowing()) mLoadingDialog.show();
   }
 
   @Override public void closeModalLoading() {
@@ -51,8 +48,7 @@ public abstract class RxBaseActivity<V extends RxBaseView, P extends RxBasePrese
 
   @Override protected void onDestroy() {
     // 解绑
-    if (getPresenter() != null)
-    getPresenter().unRegisterLifeCycle();
+    if (getPresenter() != null) getPresenter().unRegisterLifeCycle();
     super.onDestroy();
   }
 }

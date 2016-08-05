@@ -44,7 +44,9 @@ dependencies {
   compile 'com.squareup.retrofit2:retrofit-converters:' + rootProject.ext.libraries.retrofit
   compile 'com.squareup.retrofit2:converter-gson:' + rootProject.ext.libraries.retrofit
   compile 'com.squareup.retrofit2:retrofit-adapters:' + rootProject.ext.libraries.retrofit
-  // https://github.com/pedant/sweet-alert-dialog/blob/master/README.zh.md
-  compile 'cn.pedant.sweetalert:library:' + rootProject.ext.libraries.sweetalert
+  // https://github.com/afollestad/material-dialogs
+  compile ('com.afollestad.material-dialogs:commons:' + rootProject.ext.libraries.commonsdialog) {
+    exclude group: 'com.android.support' //by group
+  }
   compile 'com.nineoldandroids:library:' + rootProject.ext.libraries.nineoldandroids
 }
