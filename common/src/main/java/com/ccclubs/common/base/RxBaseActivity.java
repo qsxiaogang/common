@@ -3,6 +3,7 @@ package com.ccclubs.common.base;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.ccclubs.common.support.ConfigurationHelper;
 
 /**
  * Activity基类, 继承自此类的Activity需要实现{@link #getLayoutId},{@link #init}
@@ -28,10 +29,11 @@ public abstract class RxBaseActivity<V extends RxBaseView, P extends RxBasePrese
 
   @Override public void showModalLoading() {
     if (mLoadingDialog == null) {
-      mLoadingDialog = new MaterialDialog.Builder(this).content("正在加载...")
-          .progress(true, 0)
-          .progressIndeterminateStyle(false)
-          .show();
+      mLoadingDialog =
+          new MaterialDialog.Builder(this).content(ConfigurationHelper.getModalLoadingText())
+              .progress(true, 0)
+              .progressIndeterminateStyle(false)
+              .show();
     }
     if (!mLoadingDialog.isShowing()) mLoadingDialog.show();
   }

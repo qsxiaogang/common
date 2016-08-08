@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="network_error">网络未连接</string>
-  <string name="network_wifi">正在使用wifi</string>
-  <string name="network_mobile">正在使用移动网络</string>
+
 </resources>
